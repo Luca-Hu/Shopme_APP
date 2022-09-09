@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- use thymeleaf for every url in this app -->
+<head th:replace="fragments :: page_head('Customers - Shopme Admin', 'none')"></head>
+
+<body>
+
+	<div class="container-fluid">
+	
+<!-- Navigation -->
+		<div th:replace="navigation :: menu" ></div>
+		
+<!-- Main Title -->
+		<div>
+			<h2>Manage Customers</h2>
+		</div>
+		
+		<div th:if="${message != null}" class="alert alert-success text-center">
+			[[${message}]]
+		</div>
+
+<!-- Filter -->
+		<div>
+			<form th:action="@{/customers/page/1}" class="form-inline m-3">
+				<input type="hidden" name="sortField" th:value="${sortField}" />
+				<input type="hidden" name="sortDir" th:value="${sortDir}" />
+				
+				<i class="fa-solid fa-magnifying-glass"></i>
+				&nbsp; Filter: &nbsp; 
+				<input type="search" name="keyword" class="form-control" placeholder="Input ID/Name/Email" required />
+				&nbsp;&nbsp;
+				<input type="submit" value="Search" class="btn btn-primary" />
+				&nbsp;&nbsp;
+				<input type="button" value="Clear" class="btn btn-secondary" onclick="clearFilter()" />
+			</form>
+		</div>
+
+<!-- Show Table -->		
+		<div>
+			<i class="fa-solid fa-list-ul"></i>
+			<span>Note : Click column title to sort.</span>
+		</div>
+
+		<div>
+			<table class="table table-bordered table-striped table-hover table-responsive-xl">
+			
+				<thead class="thead-dark">
+					<tr>
+						<th th:replace="fragments :: sort_num_column('customers', 'id', 'Customer ID')" />
+						<th th:replace="fragments :: sort_letter_column('customers', 'email', 'Email')" />
+						<th th:replace="fragments :: sort_letter_column('customers', 'firstName', 'FirstName')" />
+						<th th:replace="fragments :: sort_letter_column('customers', 'lastName', 'LastName')" />
+						<th>View Detail</th>
+						<th>Edit / Delete</th>
+					</tr>
+				</thead>
+ 
+				<tbody>
+					<tr th:each="customer : ${listCustomers}">
+						<td>[[${customer.id}]]</td>
+						<td>[[${customer.email}]]</td>
+						<td>[[${customer.firstName}]]</td>
+						<td>[[${customer.lastName}]]</td>
+						<td>
+							<span> Detail : </span>
+							<a class="fa-regular fa-file-lines fa-2x icon-green link-detail"
+							th:href="@{'/customers/detail/' + ${customer.id}}"
+							th:title="'View details of customer id:' + ${customer.id}"></a>
+						</td>
+						<td>
+							<a class="fa-solid fa-user-pen fa-2x icon-green" 
+								th:href="@{'/customers/edit/' + ${customer.id}}" 
+								title="Edit this customer"></a>
+						 	&nbsp; 
+						 	<div th:replace="fragments :: delete('customer', ${customer.id}, '/customers/delete/' + ${customer.id}, true)" ></div>
+						 </td>
+					</tr>
+				</tbody>
+				
+			</table>
+		</div>
+
+<!-- Modal: customer detail  -->
+		<div class="modal fade" id="detailModal">
+			<div class="modal-dialog modal-xl">
+				<div class="modal-content"></div>
+			</div>
+		</div>
+		
+<!-- Pagination footer -->		
+		<div th:replace="fragments :: pagination('customers')"></div>
+
+		<div th:replace="modal_fragments :: confirm_modal" ></div>
+
+<!-- Web footer -->	
+		<div th:replace="fragments :: footer"></div>
+	</div>
+	
+<script th:src="@{/js/common_list.js}"></script>
+<script type="text/javascript">
+
+	const moduleURL = "[[@{/customers}]]";
+
+	$(document).ready(function() {
+		$(".link-delete").on("click", function(e) {
+			e.preventDefault();
+			showDeleteConfirmModal($(this), 'product');
+		});
+		
+		$(".link-detail").on("click", function(e) {
+			e.preventDefault();
+			linkDetailURL = $(this).attr("href");
+			$("#detailModal").modal("show").find(".modal-content").load(linkDetailURL);
+		});
+	});
+	
+</script>
+
+</body>
+</html>

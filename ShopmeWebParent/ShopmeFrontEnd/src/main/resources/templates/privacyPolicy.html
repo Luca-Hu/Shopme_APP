@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: page_head('About us', 'none')"></head>
+<body>
+<div class="container-fluid">
+		<div th:replace="navigation :: header_menu"></div>
+		<div th:replace="navigation :: search_nav"></div>
+			
+			<div class="text-center">
+			
+			<h1>Privacy Policy</h1>
+			<br>
+		
+			<h3>We take our users' privacy very seriously.</h3>
+			<h3> We promise that all privacy data like password have been encrypted, </h3>
+			<h3> and we will not disclose any of your data.</h3>
+
+		</div>
+		<div th:replace="navigation :: footer_menu"></div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,106 @@
+<div class="modal-header">
+	<h4 class="modal-title" id="modalTitle">Order Details</h4>
+	<button type="button" class="close" data-dismiss="modal">&times;</button>
+</div>
+
+<div class="modal-body">
+	<form style="max-width: 800px; margin: 0 auto">
+
+
+		<div class="border border-secondary rounded p-4">
+
+			<div class="form-group row">
+				<label class="col-sm-4  col-form-label">Order ID:</label>
+				<div class="col-sm-8">
+					<input type="text" class="form-control" th:value="${order.id}"
+						readonly />
+				</div>
+			</div>
+			
+			<div class="form-group row">
+				<label class="col-sm-4  col-form-label">Customer Name:</label>
+				<div class="col-sm-8">
+					<input type="text" class="form-control" th:value="${order.customer.firstName} + ' ' + ${order.customer.lastName}"
+						readonly />
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label class="col-sm-4 col-form-label">Order Total:</label>
+				<div class="col-sm-8">
+					<input type="text" class="form-control" th:value="'$' + ${order.total}" readonly />
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label class="col-sm-4 col-form-label">Order Time:</label>
+				<div class="col-sm-8">
+					<span th:text="${#dates.format(order.orderTime, 'yyyy-MM-dd HH:mm:ss')}"></span>
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label class="col-sm-4 col-form-label">Address:</label>
+				<div class="col-sm-8">
+					<input type="text" class="form-control" th:value="${order.address}" readonly />
+				</div>
+			</div>
+			
+			<div class="form-group row">
+				<label class="col-sm-4 col-form-label">Payment Method:</label>
+				<div class="col-sm-8">
+					<input type="text" class="form-control" th:value="${order.address}" readonly />
+				</div>
+			</div>
+			
+			<div class="form-group row">
+				<label class="col-sm-4 col-form-label">Status:</label>
+				<div class="col-sm-8">
+					<input type="text" class="form-control" th:value="${order.address}" readonly />
+				</div>
+			</div>
+			
+
+			<th:block th:each="detail, status : ${order.orderDetails}">
+				<div class="form-group row border">
+					<label class="col-sm-4 col-form-label">Product#[[${status.count}]] Detail</label>
+						
+						<div class="col-sm-8">
+							<div>
+								Product ID : <b>[[${detail.product.id}]]</b>
+							</div>
+							<div>
+								Product Name : <b>[[${detail.product.name}]]</b>
+							</div>
+							<div>
+								Price : <b>[[${detail.product.price}]]</b>
+							</div>
+							<div> 
+								Quantity : <b>[[${detail.quantity}]]</b>
+							</div>
+							<div>
+								Subtotal : $ <b>[[${detail.subtotal}]]</b>
+							</div>
+							<div>
+								Shipping Cost : $ <b>[[${detail.shippingCost}]]</b>
+							</div>
+						
+					</div>
+				</div>
+			</th:block>
+
+			<div class="form-group row">
+				<label class="col-sm-4 col-form-label">Estimated Deliver Date:</label>
+				 <div class="col-sm-8">
+			    	<span th:text="${#dates.format(order.deliverDate, 'yyyy-MM-dd, E')}"></span>
+			    </div>
+			</div>
+			
+		</div>
+	</form>
+
+</div>
+
+<div class="modal-footer">
+	<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+</div>

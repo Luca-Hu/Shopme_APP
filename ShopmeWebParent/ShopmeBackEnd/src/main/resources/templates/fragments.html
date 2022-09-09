@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<!-- page header fragment -->
+<head th:fragment="page_head(title, remove)" th:remove="${remove}">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewpoint" content="width=device-width,intial-scale=1.0,mininum-scale=1.0">
+	
+	<title>[[${title}]]</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/fontawesome/all.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/style.css}" />
+	
+	<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+	<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/common.js}"></script>
+</head> 
+
+<body>
+
+<!-- sort_by_letter fragment  (for category) -->
+	<th th:fragment="sort_letter_column_cat(fieldName, sortLabel)">
+		<a class="text-white"
+			th:title="'Sort by ' + ${sortLabel}"
+			th:href="@{'/categories' + '?sortDir=' + ${reverseSortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">
+			[[${sortLabel}]]
+		</a> 
+		<span 
+			th:class="${reverseSortDir == 'asc' ?  'fa-solid fa-arrow-down-z-a fa-lg' : 'fa-solid fa-arrow-down-a-z fa-lg'}">
+		</span>
+	</th>
+
+<!-- sort_by_num fragment  (column title as sort button) -->	
+	<th th:fragment="sort_num_column(entityName, fieldName, sortLabel)">
+		<a class="text-white"
+			th:title="'Sort by ' + ${sortLabel}"
+			th:href="@{'/' + ${entityName} + '/page/' + ${currentPage} + '?sortField=' + ${fieldName} + '&sortDir=' + ${sortField != fieldName ? sortDir : reverseSortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">
+			[[${sortLabel}]]
+		</a> 
+		<span th:if="${sortField == fieldName}"
+			th:class="${sortDir != 'asc' ?  'fa-solid fa-arrow-down-9-1 fa-lg' : 'fa-solid fa-arrow-down-1-9 fa-lg'}">
+		</span>
+	</th>
+
+<!-- sort_by_letter fragment  (column title as sort button) -->
+	<th th:fragment="sort_letter_column(entityName, fieldName, sortLabel)">
+		<a class="text-white"
+			th:title="'Sort by ' + ${sortLabel}"
+			th:href="@{'/' + ${entityName} + '/page/' + ${currentPage} + '?sortField=' + ${fieldName} + '&sortDir=' + ${sortField != fieldName ? sortDir : reverseSortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">
+			[[${sortLabel}]]
+		</a> 
+		<span th:if="${sortField == fieldName}"
+			th:class="${sortDir != 'asc' ?  'fa-solid fa-arrow-down-z-a fa-lg' : 'fa-solid fa-arrow-down-a-z fa-lg'}">
+		</span>
+	</th>
+	
+	
+<!-- delete button fragment(control visible) -->	
+	<div th:fragment="delete(entityName, entityId, deleteURL, visible)" th:remove="tag">
+		<th:block th:if="${visible}">		
+		<a class="fa-solid fa-trash-can fa-2x icon-red link-delete"
+			th:href="@{${deleteURL}}"
+			th:entityId="${entityId}"
+			th:title="'Delete this ' + ${entityName}"></a>
+		</th:block>	
+	</div>
+	
+<!-- delete button fragment(for category) -->
+	<div th:fragment="delete_category(entityId)" th:remove="tag">
+		<th:block th:if="${cat.hasChildren == false}">		
+		<a class="fa-solid fa-trash-can fa-2x icon-red link-delete"
+			th:href="@{'/categories/delete/' + ${cat.id}}"
+			th:entityId="${entityId}"
+			title="Delete this category"></a>
+		</th:block>	
+	</div>
+
+<!-- pagination fragment -->
+	<div th:fragment="pagination(entityName)" th:remove="tag">
+		<div class="text-center m-1" th:if="${totalItems > 0}">
+			<span>Showing [[${entityName}]] # [[${startCount}]] to [[${endCount}]] of [[${totalItems}]]</span>
+		</div>
+		<div class="text-center m-1" th:unless="${totalItems > 0}">
+			<span>No [[${entityName}]] found</span>
+		</div>
+
+		<div th:if="${totalItems > 0}">
+			<nav>
+				<ul class="pagination justify-content-center">
+					<li class="page-item">
+						<a th:replace="fragments :: page_link(1, 'Frist', ${entityName})"></a>
+					</li>
+					<li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
+						<a th:replace="fragments :: page_link(${currentPage - 1}, 'Previous', ${entityName})"></a>
+					</li>
+					<li th:class="${currentPage != i ? 'page-item' : 'page-item active'}" 
+						th:each="i : ${#numbers.sequence(1, totalPages)}">
+						<a th:replace="fragments :: page_link(${i}, ${i}, ${entityName})"></a>
+					</li>
+					<li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
+						<a th:replace="fragments :: page_link(${currentPage + 1}, 'Next', ${entityName})"></a>
+					</li>
+					<li class="page-item">
+						<a th:replace="fragments :: page_link(${totalPages}, 'Last', ${entityName})"></a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+	
+<!-- page_link fragment for pagination fragment -->	
+	<a th:fragment="page_link(pageNum, label, entityName)"
+		class="page-link"
+		th:href="@{'/' + ${entityName} + '/page/' + ${pageNum} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">[[${label}]]
+	</a>
+
+<!-- footer fragment -->
+	<div th:fragment="footer" class="text-center m-3">
+		<p>Shopme Control panel - Copyright &copy; Yihu App</p>
+	</div>
+
+</body>
+</html>

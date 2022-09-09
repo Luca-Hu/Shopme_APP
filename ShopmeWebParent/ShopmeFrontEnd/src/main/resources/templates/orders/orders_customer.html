@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<!-- use thymeleaf for every url in this app -->
+<head th:replace="fragments :: page_head('My Orders', 'none')"></head>
+
+<body>
+	<div class="container-fluid">
+
+<!-- Navigation -->
+		<div th:replace="navigation :: header_menu"></div>
+		
+<!-- Main Title -->
+		<div>
+			<h2>My Orders</h2>
+		</div>
+		
+		<div th:if="${message != null}" class="alert alert-success text-center">
+			[[${message}]]
+		</div>
+
+<!-- Filter -->
+		<div>
+			<form th:action="@{/orders/page/1}" class="form-inline m-3">
+				<input type="hidden" name="sortField" th:value="${sortField}" />
+				<input type="hidden" name="sortDir" th:value="${sortDir}" />
+				
+				<i class="fa-solid fa-magnifying-glass"></i>
+				&nbsp; Filter: &nbsp; 
+				<input type="search" name="keyword" class="form-control" placeholder="Search Orders" required />
+				&nbsp;&nbsp;
+				<input type="submit" value="Search" class="btn btn-primary" />
+				&nbsp;&nbsp;
+				<input type="button" value="Clear" class="btn btn-secondary" onclick="clearFilter()" />
+			</form>
+		</div>
+		
+<!-- Show Table -->
+		<div>
+			<i class="fa-solid fa-list-ul"></i>
+			<span>Note : Click column title to sort.</span>
+		</div>
+
+		<div>
+			<table class="table table-bordered table-striped table-hover table-responsive-xl">
+			
+				<thead class="thead-dark">
+					<tr>
+						<th th:replace="fragments :: sort_num_column('orders', 'id', 'Order ID')" />
+						<th th:replace="fragments :: sort_num_column('orders', 'total', 'Order Total')" />
+						<th th:replace="fragments :: sort_num_column('orders', 'orderTime', 'Order Time')" />
+						<th th:replace="fragments :: sort_letter_column('orders', 'address', 'Address')" />
+						<th th:replace="fragments :: sort_letter_column('orders', 'paymentMethod', 'Payment Method')" />
+						<th th:replace="fragments :: sort_letter_column('orders', 'status', 'Status')" />
+						<th>View Detail</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<tr th:each="order : ${listOrders}">
+						<td>[[${order.id}]]</td>
+						<td class="hideable-column">$ [[${order.total}]]</td>
+						<td class="hideable-column"><span th:text="${#dates.format(order.orderTime, 'yyyy-MM-dd HH:mm:ss')}"></span></td>
+						<td class="hideable-column">[[${order.address}]]</td>
+						<td class="hideable-column">[[${order.paymentMethod}]]</td>
+						<td class="hideable-column">[[${order.status}]]</td>
+						<td>
+							<span> Detail : </span>
+							<a class="fa-regular fa-file-lines fa-2x icon-green linkOrderDetail"
+							th:href="@{'/orders/detail/' + ${order.id}}"
+							th:title="'View details of order id: ' + ${order.id}"></a>
+						</td>
+					</tr>
+				</tbody>
+				
+			</table>
+		</div>
+
+
+
+<!-- Modal: order detail  -->
+		<div class="modal fade" id="orderDetailModal">
+			<div class="modal-dialog modal-xl">
+				<div class="modal-content"></div>
+			</div>
+		</div>
+		
+<!-- pagination -->
+		<div>&nbsp;</div><div>&nbsp;</div>
+		<div th:replace="fragments :: pagination('/orders', 'orders')"></div>
+
+<!-- Web Footer -->
+		<div th:replace="navigation :: footer_menu"></div>
+
+	</div>
+	
+<script th:src="@{/js/common_list.js}"></script>
+<script type="text/javascript">
+
+	moduleURL = "[[@{/orders}]]";
+
+	$(document).ready(function() {
+		$(".link-delete").on("click", function(e) {
+			e.preventDefault();
+			showDeleteConfirmModal($(this), 'order');
+		});
+		
+		$(".linkOrderDetail").on("click", function(e) {
+			e.preventDefault();
+			linkDetailURL = $(this).attr("href");
+			$("#orderDetailModal").modal("show").find(".modal-content").load(linkDetailURL);
+		});
+		
+	});
+	
+</script>
+
+</body>
+</html>

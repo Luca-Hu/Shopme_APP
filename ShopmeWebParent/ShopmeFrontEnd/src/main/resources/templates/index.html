@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: page_head('Shopme', 'none')"></head>
+<body>
+
+
+	<div class="container-fluid">
+		<div th:replace="navigation :: header_menu"></div>
+		<div th:replace="navigation :: search_nav"></div>
+		
+		<div class="text-center">
+			<h1>Welcome to Shopme e-Shop!</h1>
+			<br>
+			<h1>Go Shopping by Categories!</h1>
+			<br>
+		</div>
+
+<!-- list all children categories  -->
+		<div class="row">
+			<div class="col-sm-2" th:each="cat : ${listCategories}">
+				<a th:href="@{'/c/' + ${cat.name}}">
+					<img th:src="@{${cat.imagePath}}" width="120px">
+					<br>
+					<b>[[${cat.name}]]</b>
+					<br><br><br>
+				</a>
+			</div>
+		</div>
+
+		<div th:replace="navigation :: footer_menu"></div>
+		
+	</div>
+	
+
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<!-- use thymeleaf for every url in this app -->
+<head th:replace="fragments :: page_head('Error - shopme Admin', 'none')"></head>
+
+<body>
+	<br>
+	<div class="container-fluid">
+		<div th:replace="navigation :: menu"></div>
+
+		<div class="text-center">
+			<h1>Sorry! An unexpected error has occurred.</h1>
+		</div>
+
+		<div th:replace="fragments :: footer"></div>
+	</div>
+
+</body>
+
+</html>

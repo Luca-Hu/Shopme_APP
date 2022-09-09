@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<!-- use thymeleaf for every url in this app -->
+<head th:replace="fragments :: page_head('Error - shopme Admin', 'none')"></head>
+
+<body>
+	<br>
+	<div class="container-fluid">
+		<div th:replace="navigation :: header_menu" ></div>
+		
+		<div class="text-center">
+			<h1>Error 404</h1>
+			<h1>Sorry! the requested page could not be found.</h1>
+			<div>
+				<img th:src="@{/images/error404.jpg}" alt="" style="max-width: 600px" >
+			</div>
+			
+		</div>
+		
+		<div th:replace="navigation :: footer_menu" ></div>
+	</div>
+
+</body>
+
+</html>

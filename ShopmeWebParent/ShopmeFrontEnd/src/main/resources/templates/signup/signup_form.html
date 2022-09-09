@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: page_head(${pageTitle}, 'none')"></head>
+<body>
+
+	<div class="container-fluid">
+
+<!-- header navigation -->
+		<div th:replace="navigation :: header_menu"></div>
+
+<!-- Page Title -->
+		<div class="text-center">
+			<br>
+			<h1>Welcome to Shopme e-Shop!</h1>
+			<br>
+			<h2>New Customer Sign Up Page</h2>
+			<br>
+		</div>
+
+<!-- Signup form -->
+		<form th:action="@{/create_customer}" method="post"
+			th:object="${customer}" style="max-width: 600px; margin: 0 auto"
+			onsubmit="return checkEmailUnique(this);">
+			<div class="border border-secondary rounded p-3">
+				<div class="form-group row">
+					<label class="col-sm-4 col-form-label">First Name :</label>
+					<div class="col-sm-8">
+						<input type="text" th:field="*{firstName}" class="form-control"
+							required minlength="2" maxlength="45" />
+					</div>
+				</div>
+				
+				<div class="form-group row">
+					<label class="col-sm-4 col-form-label">Last Name :</label>
+					<div class="col-sm-8">
+						<input type="text" th:field="*{lastName}" class="form-control"
+							required minlength="2" maxlength="45" />
+					</div>
+				</div>
+				
+				
+				<div class="form-group row">
+					<label class="col-sm-4 col-form-label">E-mail :</label>
+					<div class="col-sm-8">
+						<input type="email" th:field="*{email}" class="form-control"
+							required minlength="6" maxlength="45"/>
+					</div>
+				</div>
+				
+				<div class="form-group row">
+					<label class="col-sm-4 col-form-label">Password :</label>
+					<div class="col-sm-8">
+						<input type="password" th:field="*{password}" class="form-control"
+							required minlength="6" maxlength="15" 
+							oninput="checkPasswordMatch(document.getElementById('confirmPassword'))" />
+					</div>
+				</div>
+				
+				<div class="form-group row">
+					<label class="col-sm-4 col-form-label">Re-Type Password :</label>
+					<div class="col-sm-8">
+						<input type="password" id="confirmPassword" class="form-control"
+							required minlength="6" maxlength="15"
+							oninput="checkPasswordMatch(this)" />
+					</div>
+				</div>
+				
+				<div class="form-group row">
+					<label class="col-sm-4 col-form-label">Phone Number :</label>
+					<div class="col-sm-8">
+						<input type="text" th:field="*{phoneNumber}" class="form-control"
+							required minlength="9" maxlength="12" />
+					</div>
+				</div>
+				
+				<div class="form-group row">
+					<label class="col-sm-4 col-form-label">Address :</label>
+					<div class="col-sm-8">
+						<input type="text" th:field="*{address}" class="form-control"
+							required minlength="3" maxlength="64" />
+					</div>
+				</div>
+
+				<div class="text-center">
+					<input type="submit" value="Create Account" class="btn btn-primary" />
+				</div>
+				<div>&nbsp;</div>
+			</div>
+		</form>
+
+		<!-- modal dialog  -->
+		<div th:replace="fragments :: modal_dialog"></div>
+
+		<!-- Web footer -->
+		<div th:replace="navigation :: footer_menu"></div>
+
+	</div>
+
+<script type="text/javascript">
+
+	function checkPasswordMatch(confirmPassword){
+		if(confirmPassword.value != $("#password").val()){
+			confirmPassword.setCustomValidity("Passwords do not match");
+		} else {
+			confirmPassword.setCustomValidity("");
+		}
+	}
+	
+	contextPath = "[[@{/}]]";
+	
+	function checkEmailUnique(form) {
+		url = contextPath + "customers/check_unique_email";
+		customerEmail = $("#email").val();
+		csrfValue = $("input[name='_csrf']").val();
+
+		params = {email: customerEmail, _csrf: csrfValue };
+
+		$.post(url, params, function(response) {
+			if (response == "OK") {
+				form.submit();
+			} else if (response == "Duplicated") {
+				showWarningModal("This email has been registered!");
+			} else {
+				showErrorModal("Unknown response from server!");
+			}
+		}).fail(function() {
+			showErrorModal("Could not connect to the server!");
+		});
+		return false;
+	}
+	
+</script>
+<script type="text/javascript" th:src="@{/js/common_form_modal.js}"></script>
+</body>
+</html>

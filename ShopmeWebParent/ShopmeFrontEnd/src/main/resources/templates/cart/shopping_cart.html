@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: page_head('Shopping Cart', 'none')"></head>
+<body>
+
+
+	<div class="container-fluid">
+		<div th:replace="navigation :: header_menu"></div>
+		<div th:replace="navigation :: search_nav"></div>
+		
+		<div class="text-center">
+			<br>
+			<h1>Your Shopping Cart</h1>
+			<br>
+		</div>
+
+<!-- list all cartItems  -->
+		<div class="row">
+			<div class="col-sm-9">
+				<th:block th:each="item, status : ${listCartItems}">
+				
+					<div class="row border rounded p-1" th:id="'row' + ${status.count}" >
+						<div class="col-1">
+							<br>
+							<div class="divCount">Item:#[[${status.count}]]</div>
+							<div><a class="fas fa-trash linkRemove" th:href="@{'/cart/remove/' + ${item.product.id}}" 
+								th:rowNumber="${status.count}"></a></div>
+						</div>
+						
+						
+						<div class="col-3">
+							<br>
+							<img class="img-fluid" th:src="@{${item.product.mainImagePath}}" width="140px" > 
+						</div>
+						
+						<div class="col-6">
+							<div>
+								<br>
+								<a th:href="@{'/p/' + ${item.product.name}}" target="_blank" th:title="${item.product.name}">
+								<b>[[${item.product.name}]]</b></a>
+							</div>
+							
+							<div th:replace="cart/quantity_control :: quantity_control(${item.quantity}, ${item.product.id})"></div>
+
+							<div>
+								<span th:if="${item.product.inStock}" class="text-success"><b>In Stock</b></span>
+								<span th:unless="${item.product.inStock}" class="text-danger"><b>Out of Stock</b></span>
+							</div>
+						</div>
+						
+						<div class="col-2">
+							<br>
+							<div>
+								<span>$</span>
+								<span th:id="'subtotal' + ${item.product.id}" class="h4 subtotal">[[${item.subtotal}]]</span>
+								<br>
+								<span>Each Price: $ [[${item.product.price}]]</span>
+							</div>
+						</div>
+						
+					</div>
+					
+					<div class="row m-1" th:id="'blankLine' + ${item.product.id}">&nbsp;</div>
+				</th:block>
+			</div>
+			
+<!-- Subtotal & Checkout button -->			
+			<div class="col-sm-3" th:unless="${#lists.isEmpty(listCartItems)}" id="sectionTotal">
+				<div>
+					<span class="h3">Subtotal: </span>
+					<div class="mt-2">
+						<span>$</span>
+						<span id="total" class="h2">[[${subtotal}]]</span>
+					</div>
+					
+					<div class="mt-2">
+						<form th:action="@{/checkout}">
+							<button type="submit" class="btn btn-warning p-3 mt-2">Proceed to checkout</button>
+						</form>
+					</div>
+				
+				</div>
+			</div>
+			
+		</div>
+	
+<!-- If no listCartItems -->
+		<div id="sectionEmptyCartMessage" th:class="'text-center' + ${#lists.isEmpty(listCartItems) ? '' : 'd-none'}" >
+			<br>
+			<div>
+				<span class="h3">Your Shopme Cart is empty.</span>
+			</div>
+		</div>
+		
+<!-- Modal_dialog -->		
+		<div th:replace="fragments :: modal_dialog"></div>
+		
+<!-- Web footer -->
+		<div th:replace="navigation :: footer_menu"></div>
+		
+	</div>
+	
+<script type="text/javascript">
+		
+	contextPath = "[[@{/}]]";
+	var csrfHeaderName = "[[${_csrf.headerName}]]";
+	var csrfValue = "[[${_csrf.token}]]";
+	
+</script>
+<script type="text/javascript" th:src="@{/js/shopping_cart_quantity_control.js}"></script>
+<script type="text/javascript" th:src="@{/js/common_form_modal.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.number.min.js}"></script>
+</body>
+</html>
