@@ -85,7 +85,7 @@
 		</div>
 	
 <!-- If no listCartItems -->
-		<div id="sectionEmptyCartMessage" th:class="'text-center' + ${#lists.isEmpty(listCartItems) ? '' : 'd-none'}" >
+		<div id="sectionEmptyCartMessage" th:if="${#lists.isEmpty(listCartItems)}" >
 			<br>
 			<div>
 				<span class="h3">Your Shopme Cart is empty.</span>

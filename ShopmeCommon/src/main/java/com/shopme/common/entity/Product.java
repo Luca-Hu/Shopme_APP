@@ -48,7 +48,7 @@ public class Product {
 	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL) // 
 	private Set<ProductImage> images = new HashSet<>();
 	
-	public Product(Integer id) {
+	public Product(Integer id) { 
 		this.id = id;
 	}
 
@@ -150,4 +150,5 @@ public class Product {
 		}
 		return name;
 	}
+	
 }
