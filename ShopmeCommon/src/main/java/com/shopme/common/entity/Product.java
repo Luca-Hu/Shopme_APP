@@ -24,7 +24,7 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@Column(unique = true, length = 256, nullable = false)
+	@Column(unique = true, length = 255, nullable = false)
 	private String name;
 	
 	@Column(name="description", unique = true, length = 1024, nullable = false)
