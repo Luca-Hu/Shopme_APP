@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.shope.common.exception.ProductNotFoundException;
+import com.shopme.admin.AmazonS3Util;
 import com.shopme.admin.FileUploadUtil;
 import com.shopme.admin.category.CategoryService;
 import com.shopme.common.entity.Category;
@@ -86,72 +87,43 @@ public class ProductController {
 	}
 	
 	@PostMapping("/products/save")
-	public String saveProduct(Product product, RedirectAttributes redirectAttributes,
-			@RequestParam("fileImage") MultipartFile multipartFile,
-			@RequestParam("extraImage") MultipartFile[] extraMultipartFiles) throws IOException {
+	public String saveProduct(Product product, RedirectAttributes ra,
+			@RequestParam(value = "fileImage", required = false) MultipartFile mainImageMultipart,			
+			@RequestParam(value = "extraImage", required = false) MultipartFile[] extraImageMultiparts,
+			@RequestParam(name = "detailIDs", required = false) String[] detailIDs,
+			@RequestParam(name = "detailNames", required = false) String[] detailNames,
+			@RequestParam(name = "detailValues", required = false) String[] detailValues,
+			@RequestParam(name = "imageIDs", required = false) String[] imageIDs,
+			@RequestParam(name = "imageNames", required = false) String[] imageNames
+			) throws IOException {
 		
-		setMainImageName(multipartFile, product);  // update image-files' path
-		setExtraImageNames(extraMultipartFiles, product);
+		ProductSaveHelper.setMainImageName(mainImageMultipart, product);
+		ProductSaveHelper.setExistingExtraImageNames(imageIDs, imageNames, product);
+		ProductSaveHelper.setNewExtraImageNames(extraImageMultiparts, product);
+		ProductSaveHelper.setProductDetails(detailIDs, detailNames, detailValues, product);
 			
-		Product savedProduct = productService.save(product); 
-
-		saveUploadedImages(multipartFile, extraMultipartFiles, savedProduct); // save image-files
-
-		redirectAttributes.addFlashAttribute("message", "Product: " + product.getName() +", has been saved successfully!"); 
+		Product savedProduct = productService.save(product);
+		
+		ProductSaveHelper.saveUploadedImages(mainImageMultipart, extraImageMultiparts, savedProduct);
+		
+		ProductSaveHelper.deleteExtraImagesWeredRemovedOnForm(product);
+		
+		ra.addFlashAttribute("message", "The product has been saved successfully.");
 		
 		return "redirect:/products";
 	}
 
-	private void saveUploadedImages(MultipartFile multipartFile, MultipartFile[] extraMultipartFiles, Product savedProduct) throws IOException {
-		if (!multipartFile.isEmpty()) { // save the main image
-			String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-
-			// Note: products' images file will be saved in directory under the "WebParent" dir
-			String uploadDir = "../product-images/" + savedProduct.getId(); 
-
-			FileUploadUtil.cleanDir(uploadDir);
-			FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
-		}
-		if (extraMultipartFiles.length > 0) { // save the extra images
-			String uploadDir = "../product-images/" + savedProduct.getId() + "/extras";
-			for (MultipartFile extraFile : extraMultipartFiles) {
-				if (extraFile.isEmpty()) {
-					continue;
-				}
-				String fileName = StringUtils.cleanPath(extraFile.getOriginalFilename());
-				FileUploadUtil.saveFile(uploadDir, fileName, extraFile);
-			}
-		}
-	}
-
-	private void setExtraImageNames(MultipartFile[] extraMultipartFiles, Product product) {  
-		if(extraMultipartFiles.length > 0) {  // if we get new extra-image files ... then update these files
-			for (MultipartFile multipartFile : extraMultipartFiles) {
-				if(!multipartFile.isEmpty()) {  // if we get new main-image file ... then update the file 
-					String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-					product.addExtraImage(fileName);
-				}
-			}
-		}
-	}
-
-	public void setMainImageName(MultipartFile multipartFile, Product product) { 
-		if(!multipartFile.isEmpty()) {  // if we get new main-image file ... then update the file 
-			String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-			product.setMainImage(fileName);
-		}
-	}
 	
 	@GetMapping("/products/delete/{id}")
 	public String deleteProduct(@PathVariable(name = "id") Integer id, Model model, 
 			RedirectAttributes redirectAttributes) throws IOException {
 		try {
 			productService.delete(id);
-			String productExtraImagesDir = "../product-images/" + id + "/extras";
-			String productImagesDir =  "../product-images/" + id;
-			
-			FileUploadUtil.removeDir(productExtraImagesDir);
-			FileUploadUtil.removeDir(productImagesDir);
+			String productExtraImagesDir = "product-images/" + id + "/extras";
+			String productImagesDir =  "product-images/" + id;
+
+			AmazonS3Util.removeFolder(productExtraImagesDir);
+			AmazonS3Util.removeFolder(productImagesDir);
 			
 			redirectAttributes.addFlashAttribute("message", "The Product (Id: " + id + ") has been deleted successfully!");	
 		} catch (ProductNotFoundException e) {

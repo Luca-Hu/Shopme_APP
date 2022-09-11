@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.shope.common.exception.CategoryNotFoundException;
+import com.shopme.admin.AmazonS3Util;
 import com.shopme.admin.FileUploadUtil;
 import com.shopme.common.entity.Category;
 
@@ -61,10 +62,10 @@ public class CategoryController {
 			Category savedCategory = service.save(category);
 
 			// Note: categories' images file will be saved in directory under the "WebParent" dir
-			String uploadDir = "../category-images/" + savedCategory.getId(); 
+			String uploadDir = "category-images/" + savedCategory.getId(); 
 
-			FileUploadUtil.cleanDir(uploadDir);
-			FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+			AmazonS3Util.removeFolder(uploadDir);
+			AmazonS3Util.uploadFile(uploadDir, fileName, multipartFile.getInputStream());
 		} else {  // if we need not change the image file ... then just save the object
 			service.save(category);
 		}
@@ -97,8 +98,8 @@ public class CategoryController {
 			RedirectAttributes redirectAttributes) throws IOException {
 		try {
 			service.delete(id);
-			String categoryDir =  "../category-images/" + id;
-			FileUploadUtil.removeDir(categoryDir);
+			String categoryDir =  "category-images/" + id;
+			AmazonS3Util.removeFolder(categoryDir);
 			
 			redirectAttributes.addFlashAttribute("message", "The Category (Id: " + id + ") has been deleted successfully!");	
 		} catch (CategoryNotFoundException e) {

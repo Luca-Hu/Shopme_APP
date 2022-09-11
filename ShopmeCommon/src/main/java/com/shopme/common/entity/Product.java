@@ -1,7 +1,10 @@
 package com.shopme.common.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -15,6 +18,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import com.shopme.common.Constants;
 
 @Entity
 @Table(name="products")
@@ -45,8 +50,11 @@ public class Product {
 	@JoinColumn(name= "category_id") 
 	private Category category; // only need reference which directed from products side to category side
 	
-	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL) // 
+	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<ProductImage> images = new HashSet<>();
+	
+	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<ProductDetail> details = new ArrayList<>();
 	
 	public Product(Integer id) { 
 		this.id = id;
@@ -140,7 +148,23 @@ public class Product {
 		if(id == null || mainImage == null) {
 			return "/images/image-thumbnail.png";
 		}
-		return "/product-images/" + this.id + "/" + this.mainImage;
+		return Constants.S3_BASE_URI + "/product-images/" + this.id + "/" + this.mainImage;
+	}
+	
+	public List<ProductDetail> getDetails() {
+		return details;
+	}
+
+	public void setDetails(List<ProductDetail> details) {
+		this.details = details;
+	}
+	
+	public void addDetail(String name, String value) {
+		this.details.add(new ProductDetail(name, value, this));
+	}
+
+	public void addDetail(Integer id, String name, String value) {
+		this.details.add(new ProductDetail(id, name, value, this));
 	}
 	
 	@Transient
@@ -151,4 +175,16 @@ public class Product {
 		return name;
 	}
 	
+	public boolean containsImageName(String imageName) {
+		Iterator<ProductImage> iterator = images.iterator();
+		
+		while (iterator.hasNext()) {
+			ProductImage image = iterator.next();
+			if (image.getName().equals(imageName)) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
 }
