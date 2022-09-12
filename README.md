@@ -222,8 +222,8 @@ You have 3 ways to test:
 
 5、Contact Me
 
-If you have any questions or advices, please let me know.
+If you have any questions or advices, please feel free to contact me.
 
 My Linken Account： www.linkedin.com/in/yi-hu-58852321a
 
-My Email： yihu@smu.edu 
+My Email： <yihu@smu.edu> 
