@@ -149,11 +149,11 @@ https://shopme-customer-yihu.herokuapp.com/
 
 You have 3 ways to test:
 
-1、You can view the products without login.
+1、You can view the products without signning in.
 
-2、You can signup a new customer account and then login (no auto-login).
+2、You can sign up a new customer account and then sign in.
 
-3、You can login as Beth's account : Email: beth@gmail.com , Password:tester.
+3、You can sign in Beth's customer account : Email: beth@gmail.com , Password:tester
 
 --------------------
 
