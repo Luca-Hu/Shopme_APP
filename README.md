@@ -19,6 +19,7 @@ https://shopme-customer-yihu.herokuapp.com/
 
  -------
 
+
 2、The Technologies Involved In This Project
 
 I use SpringToolSuite IDE (Eclipse-based) to build this project, and use **Spring Boot** as framework.
@@ -32,10 +33,10 @@ Details:
 - Unit & Integration Test :  **JUnit,  AssertJ and  Mockito**
 - FrontEnd & BackEnd Deployment :  **Heroku,  AMAZON S3 CLOUD**
  
-  ----------------------------
+----------------------------
+  
 
 3、Access to Test
-
 
 This web application has been deployed on Heroku so you can directly access it by clicking these links：
 
@@ -82,6 +83,7 @@ Customer-side's homepage is "products" module, you can click the categories imag
 You can click "Sign in" button to sign in a customer account or click "Sign up" button to sign up a new customer account. After you sign in, you can see a new nav bar for your account, that means you can use "Cart" and "Orders" module. You can place order in "Cart" module, and view the order details in "Orders" module. Meanwhile, in admin-side application, you order data will appear in "Orders" module.
 
 ------------
+
 
 4、Web Application Function Description
 
@@ -167,6 +169,7 @@ You can use the paginations under these forms to page. Also, you can sort the fi
 
 
 --------------------
+
 
 5、 Demonstration
 
