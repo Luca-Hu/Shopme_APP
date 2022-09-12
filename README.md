@@ -113,6 +113,7 @@ In each product's homepage, you can zoom images by hovering over the thumbnail p
 The CART module supports basic CRUD (create, read, Update, DELETE) operations to manage items in your cart. When the number of items update, page will keep displaying the real-time SubTotal calculation result. 
 
 - 6、 Complete Shopping Experience:
+
 After you place order, the order data will be updated in the "orders" mangement page of administrater-side application. Shopme staff will deliver the product to your address!
 
  ----------------------------
