@@ -31,10 +31,59 @@ Details:
 - Authentication & Authorization :  **Spring Security**
 - Unit & Integration Test :  **JUnit,  AssertJ and  Mockito**
 - FrontEnd & BackEnd Deployment :  **Heroku,  AMAZON S3 CLOUD**
+ 
+  ----------------------------
 
- ----------
+3、Access to Test
 
-3、Web Application Function Description
+
+This web application has been deployed on Heroku so you can directly access it by clicking these links：
+
+Please wait patiently for the page to open.
+
+- As Administraters Of The Website:
+
+https://shopme-admin-yihu.herokuapp.com/
+
+< Please wait patiently for the reponse of page. >
+
+You have 3 ways to test:
+
+1、You can sign in Nar's account(Admin) : **Email: nar@test.com ， Password:tester**   
+
+2、You can sign in William's account(Shipper) : **Email: william@test.com ， Password:tester**   
+
+3、You can sign in Emery's account(Salesperson) : **Email: emery@test.com ， Password:tester**  
+
+< Tips: All the users/staff and customers' initial password is the same: "tester", so you can log in other roles (Admin, Salesperson, Shipper) in the users/staff form, different roles has different authentications. >
+
+In Admin-side, you must login an adminstrator's account to access this control panel.
+
+You can click "Users/staff" button in nav bar to manage other administrator's account, click "Categories" and "Products" to manage categories and products, click "Customers" and "Orders" to manage customers account and their orders. Meanwhile, the customer-side application will update your change.
+
+For example, you can create a new category as a root category or a sub-category in "Categories" module. Then you can create a new product under this new category. Category property of a product determines where customer can find it in customer-side application.
+ 
+// -----------------------------------------------
+
+- As Visitors And Customers:
+
+https://shopme-customer-yihu.herokuapp.com/
+
+You have 3 ways to test:
+
+1、You can view the products without signning in.
+
+2、You can sign up a new customer account and then sign in.
+
+3、You can sign in Beth's customer account : **Email: beth@gmail.com , Password:tester**
+
+Customer-side's homepage is "products" module, you can click the categories images to browser the products under the categories, or search a product using search bar under nav bar. 
+
+You can click "Sign in" button to sign in a customer account or click "Sign up" button to sign up a new customer account. After you sign in, you can see a new nav bar for your account, that means you can use "Cart" and "Orders" module. You can place order in "Cart" module, and view the order details in "Orders" module. Meanwhile, in admin-side application, you order data will appear in "Orders" module.
+
+------------
+
+4、Web Application Function Description
 
 
 Shopme App is a complete shopping website. **You can test both as a administrater and as a customer.**
@@ -116,54 +165,6 @@ You can use the paginations under these forms to page. Also, you can sort the fi
 
  After you place order, the order data will be updated in the "orders" mangement page of administrater-side application. Shopme staff will deliver the product to your address!
 
- ----------------------------
-
-4、Access to Test
-
-
-This web application has been deployed on Heroku so you can directly access it by clicking these links：
-
-Please wait patiently for the page to open.
-
-- As Administraters Of The Website:
-
-https://shopme-admin-yihu.herokuapp.com/
-
-< Please wait patiently for the reponse of page. >
-
-You have 3 ways to test:
-
-1、You can sign in Nar's account(Admin) : **Email: nar@test.com ， Password:tester**   
-
-2、You can sign in William's account(Shipper) : **Email: william@test.com ， Password:tester**   
-
-3、You can sign in Emery's account(Salesperson) : **Email: emery@test.com ， Password:tester**  
-
-< Tips: All the users/staff and customers' initial password is the same: "tester", so you can log in other roles (Admin, Salesperson, Shipper) in the users/staff form, different roles has different authentications. >
-
-In Admin-side, you must login an adminstrator's account to access this control panel.
-
-You can click "Users/staff" button in nav bar to manage other administrator's account, click "Categories" and "Products" to manage categories and products, click "Customers" and "Orders" to manage customers account and their orders. Meanwhile, the customer-side application will update your change.
-
-For example, you can create a new category as a root category or a sub-category in "Categories" module. Then you can create a new product under this new category. Category property of a product determines where customer can find it in customer-side application.
- 
-// -----------------------------------------------
-
-- As Visitors And Customers:
-
-https://shopme-customer-yihu.herokuapp.com/
-
-You have 3 ways to test:
-
-1、You can view the products without signning in.
-
-2、You can sign up a new customer account and then sign in.
-
-3、You can sign in Beth's customer account : **Email: beth@gmail.com , Password:tester**
-
-Customer-side's homepage is "products" module, you can click the categories images to browser the products under the categories, or search a product using search bar under nav bar. 
-
-You can click "Sign in" button to sign in a customer account or click "Sign up" button to sign up a new customer account. After you sign in, you can see a new nav bar for your account, that means you can use "Cart" and "Orders" module. You can place order in "Cart" module, and view the order details in "Orders" module. Meanwhile, in admin-side application, you order data will appear in "Orders" module.
 
 --------------------
 
