@@ -1,11 +1,11 @@
 1、Introduction To Shopme APP
 
 
-This Web Application's name is Shopme App.
+Shopme Web Application is a full-stack app was built by me while I was taking Nam Ha Minh's Spring Boot course. I developed it with **Java Spring Boot**. 
 
 **It is a comprehensive Ecommerce project**, which is very functional and interactive. This application can be divided into admin part and customer part. You can manage complex object-relational models of various entiries in admin application, and experience the process of online shopping in customer application. 
 
-This full-stack app was built by me while I was taking Nam Ha Minh's Spring Boot course. I developed it with **Java Spring Boot**. **It has been deployed on Heroku and you can access it by following the link below.** But I suggest you take a look at the description before you try to enter these links. By the way, the images you upload will be saved permanently in AMAZON S3 CLOUD.
+**This web application has been deployed on Heroku and you can access it by following the link below.** But I suggest you take a look at the description before you try to enter these links. By the way, the images you upload will be saved permanently in AMAZON S3 CLOUD.
 
 - As administraters of the website:
 
