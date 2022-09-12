@@ -29,7 +29,7 @@ Details:
 - Server : **Hibernate,  Spring Data JPA,  etc**
 - Database : **MySQL**
 - Authentication & Authorization :  **Spring Security**
-- Unit Test :  **JUnit,  AssertJ and  Mockito**
+- Unit & Integration Test :  **JUnit,  AssertJ and  Mockito**
 - FrontEnd & BackEnd Deployment :  **Heroku,  AMAZON S3 CLOUD**
 
  ----------
