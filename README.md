@@ -121,7 +121,7 @@ You can use the paginations under these forms to page. Also, you can sort the fi
 4、Access to Test
 
 
-It has been deployed on Heroku so you can access it through these links：
+This web application has been deployed on Heroku so you can directly access it by clicking these links：
 
 Please wait patiently for the page to open.
 
