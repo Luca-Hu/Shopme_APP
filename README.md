@@ -46,7 +46,7 @@ In the Admin Application, the main functions are as follows：
 
 - 1、Basic CRUD operations support in all forms:
 
-You can perform basic CRUD (create, read, Update, DELETE) operations in all these forms. The data of relevant modules such as "products", "categories", "orders", "customers" will be updated in visitor& customer-side, you can enter another link to see the change.
+You can perform CRUD (create, read, Update, DELETE) operations in all these forms. The data of relevant modules such as "products", "categories", "orders", "customers" will be updated in visitor& customer-side, you can enter another link to see the change.
 
 - 2、Sort & Paging :
 
