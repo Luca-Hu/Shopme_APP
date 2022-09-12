@@ -128,6 +128,9 @@ Please wait patiently for the page to open.
 - As Administraters Of The Website:
 
 https://shopme-admin-yihu.herokuapp.com/
+
+< Please wait patiently for the reponse of page. >
+
 You have 3 ways to test:
 
 1、You can login as Nar's account(Admin) : Email: nar@test.com ， Password:tester   
