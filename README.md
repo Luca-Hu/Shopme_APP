@@ -88,7 +88,7 @@ You can use the paginations under these forms to page. Also, you can sort the fi
 
 - As a visitor & customer, you can view products by category or search specific product. But you should sign up and login if you want use the cart/ order / checkout modules.
 
-- 1、Sign up & Sign in
+- 1、Customer Sign up & Sign in
 
  Every visitor can sign up to become a customer member and use the cart to shop. The customer data will be updated in the "customers" management page of administrater-side application.
 
