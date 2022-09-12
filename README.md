@@ -26,7 +26,7 @@ I use SpringToolSuite IDE (Eclipse-based) to build this project, and use **Sprin
 Details: 
 
 - FrontEnd View Layer : **JQuery,  Thymeleaf,  Bootstrap,  Spring RESTful Webservices,  etc**
-- Server : **Hibernate,  Spring Data JPA,  etc**
+- Server : **Spring boot, Hibernate,  Spring Data JPA,  etc**
 - Database : **MySQL**
 - Authentication & Authorization :  **Spring Security**
 - Unit Test :  **JUnit,  AssertJ and  Mockito**
