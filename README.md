@@ -64,7 +64,7 @@ You can use the paginations under these forms to page. Also, you can sort the fi
 
 - 5、 Hierarchical Categories And Product Classification:
 
- Category Form contains hierarchical categories. Every products have their own category. Their classification relationship is reflected in the Categories form, as well as in the Products form.
+ Category Form contains hierarchical categories. Every products have their own category. Their classification relationship is reflected in the Categories form, as well as in the Products form. Category property of a product determines where customer can find it in customer-side application.
 
 - 6、 Upload Images for Users, Categories and Products
 
@@ -133,13 +133,19 @@ https://shopme-admin-yihu.herokuapp.com/
 
 You have 3 ways to test:
 
-1、You can login as Nar's account(Admin) : Email: nar@test.com ， Password:tester   
+1、You can sign in Nar's account(Admin) : **Email: nar@test.com ， Password:tester**   
 
-2、You can login as William's account(Shipper) : Email: william@test.com ， Password:tester   
+2、You can sign in William's account(Shipper) : **Email: william@test.com ， Password:tester**   
 
-3、You can login as Emery's account(Salesperson) : Email: emery@test.com ， Password:tester  
+3、You can sign in Emery's account(Salesperson) : **Email: emery@test.com ， Password:tester**  
 
 < Tips: All the users/staff and customers' initial password is the same: "tester", so you can log in other roles (Admin, Salesperson, Shipper) in the users/staff form, different roles has different authentications. >
+
+In Admin-side, you must login an adminstrator's account to access this control panel.
+
+You can click "Users/staff" button in nav bar to manage other administrator's account, click "Categories" and "Products" to manage categories and products, click "Customers" and "Orders" to manage customers account and their orders. Meanwhile, the customer-side application will update your change.
+
+For example, you can create a new category as a root category or a sub-category in "Categories" module. Then you can create a new product under this new category. Category property of a product determines where customer can find it in customer-side application.
  
 // -----------------------------------------------
 
@@ -153,7 +159,11 @@ You have 3 ways to test:
 
 2、You can sign up a new customer account and then sign in.
 
-3、You can sign in Beth's customer account : Email: beth@gmail.com , Password:tester
+3、You can sign in Beth's customer account : **Email: beth@gmail.com , Password:tester**
+
+Customer-side's homepage is "products" module, you can click the categories images to browser the products under the categories, or search a product using search bar under nav bar. 
+
+You can click "Sign in" button to sign in a customer account or click "Sign up" button to sign up a new customer account. After you sign in, you can see a new nav bar for your account, that means you can use "Cart" and "Orders" module. You can place order in "Cart" module, and view the order details in "Orders" module. Meanwhile, in admin-side application, you order data will appear in "Orders" module.
 
 --------------------
 
