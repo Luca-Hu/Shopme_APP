@@ -5,13 +5,13 @@ Shopme Web Application is a full-stack web appllication built by me while I was 
 
 This application is a very functional and interactive Ecommerce project. It was divided into admin part and customer part. Each part was responsible for different functions. The admin part allows administrators to manage all entity modules. The customer part allows customers to browse products and place orders. 
 
-**This web application has been deployed on Heroku, so you can directly access it through the link provided below. But I suggest you take a look at the description in advance.
+**This web application has been deployed on Heroku, so you can directly access it through the link provided below. But I suggest you take a look at the description in advance.**
 
-- As administraters of the website:
+- Admin part link :(for administraters)
 
 https://shopme-admin-yihu.herokuapp.com/
 
-- As visitors and customers:
+- Customer part link : (for visitors and customers)
 
 https://shopme-customer-yihu.herokuapp.com/
 
@@ -30,7 +30,7 @@ Details:
 - Server : **Hibernate,  Spring Data JPA,  etc**
 - Database : **MySQL**
 - Authentication & Authorization :  **Spring Security**
-- Unit & Integration Test :  **JUnit,  AssertJ and  Mockito**
+- Unit & Integration Test :  **Spring Test, JUnit,  AssertJ and  Mockito**
 - FrontEnd & BackEnd Deployment :  **Heroku,  AMAZON S3 CLOUD**
  
 ----------------------------
@@ -42,7 +42,7 @@ This web application has been deployed on Heroku so you can directly access it b
 
 Please wait patiently for the page to open.
 
-- As Administraters Of The Website:
+- Admin part link :(for administraters)
 
 https://shopme-admin-yihu.herokuapp.com/
 
@@ -56,17 +56,15 @@ You have 3 ways to test:
 
 3、You can sign in Emery's account(Salesperson) : **Email: emery@test.com ， Password:tester**  
 
-< Tips: All the users/staff and customers' initial password is the same: "tester", so you can log in other roles (Admin, Salesperson, Shipper) in the users/staff form, different roles has different authentications. >
+< Tips: All default account's initial password is: "tester" >
 
 In Admin-side, you must login an adminstrator's account to access this control panel.
 
-You can click "Users/staff" button in nav bar to manage other administrator's account, click "Categories" and "Products" to manage categories and products, click "Customers" and "Orders" to manage customers account and their orders. Meanwhile, the customer-side application will update your change.
-
-For example, you can create a new category as a root category or a sub-category in "Categories" module. Then you can create a new product under this new category. Category property of a product determines where customer can find it in customer-side application.
+You can click on all modules on the nav bar to enter the manage panel. Specifically, "Users/staff" module allows you to manage other administrator's account information.  "Categories" and "Products" allows you to manage categories and products you want display on customers side. For example, you can create a new category and then create a new product under this new category. Meanwhile, customer-side application will update these changes. "Customers" and "Orders" allows you to manage customers account information and their orders status. 
  
 // -----------------------------------------------
 
-- As Visitors And Customers:
+- Customer part link : (for visitors and customers)
 
 https://shopme-customer-yihu.herokuapp.com/
 
@@ -78,9 +76,9 @@ You have 3 ways to test:
 
 3、You can sign in Beth's customer account : **Email: beth@gmail.com , Password:tester**
 
-Customer-side's homepage is "products" module, you can click the categories images to browser the products under the categories, or search a product using search bar under nav bar. 
+Customer-side's homepage is "products" module, you can select any category image to browser the products under the category, or you can search a specific product using search bar above the major form. 
 
-You can click "Sign in" button to sign in a customer account or click "Sign up" button to sign up a new customer account. After you sign in, you can see a new nav bar for your account, that means you can use "Cart" and "Orders" module. You can place order in "Cart" module, and view the order details in "Orders" module. Meanwhile, in admin-side application, you order data will appear in "Orders" module.
+You can clickon "Sign in" button to login a customer account or click on "Sign up" button to sign up a new customer account. After you sign in, you can see a new nav bar for your account, that means you can use "Cart" and "Orders" module. You can place order in "Cart" module, and view the order details in "Orders" module. Meanwhile, in admin-side application, you order data will appear in "Orders" module.
 
 ------------
 
@@ -97,7 +95,7 @@ In the Admin Application, the main functions are as follows：
 
 - 1、Basic CRUD operations support in all forms:
 
- You can perform CRUD (create, read, Update, DELETE) operations in all these forms. The data of relevant modules such as "products", "categories", "orders", "customers" will be updated in visitor& customer-side, you can enter another link to see the change.
+ You can perform CRUD (create, read, Update, DELETE) operations in all these forms. The data of relevant modules such as "products", "categories", "orders", "customers" will be updated in customer-side, you can clickon another link to see the changes.
 
 - 2、Sort & Paging :
 
@@ -111,27 +109,27 @@ You can use the paginations under these forms to page. Also, you can sort the fi
 
 - 4、 Export Excel File Function :
 
- The Users Form provides the export Excel file function. So you can get an Excel file including an employee list by clicking the Export button in the Users (Staff) page.
+ The Users Form provides the export Excel file function. So you can get an Excel file including an employee list by clicking on the Export button in the Users (Staff) page.
 
 - 5、 Hierarchical Categories And Product Classification:
 
- Category Form contains hierarchical categories. Every products have their own category. Their classification relationship is reflected in the Categories form, as well as in the Products form. Category property of a product determines where customer can find it in customer-side application.
+ Category is hierarchical, and every product has its own category. Category property of a product determines where customer can find it in customer-side application.
 
 - 6、 Upload Images for Users, Categories and Products
 
- You can upload or modify images for "Users", "Categories", "Products". The images will be displayed in the table. Besides, the default image will be displayed in the form if you have not added any images for them.
+ You can upload or modify images for "Users", "Categories", "Products". The images will be displayed in the form. Besides, the default image will be displayed in the form if you have not added any images for them.
 
 - 7、 Add Extra Images For Each Product :
 
  The Products Form allows you to add one main-image and many extra-images for each product. All these images will be shown in the page of each product in customer-side.
 
-- 8、 Authentication & Authorizations :
-
- Web application has different Authentication & Authorizations for diferent user roles (Admin, Salesperson, Shipper). They have different access permissions in this website. Only when you login an Admin account, you have all permissions.
-
-- 9、 Persistence of Image Files :
+- 8、 Persistence of Image Files :
 
  Image files are stored in AMAZZON S3 CLOUD, the data will be persistent. So all pictures uploaded by you will also be saved permanently.
+ 
+ - 9、 Authentication & Authorizations :
+
+ Web application has different Authentication & Authorizations for diferent user roles (Admin, Salesperson, Shipper). They have different access permissions in this website. Only when you login an Admin account, you have full permission.
 
 
 // -----------------------------------------------
@@ -145,7 +143,7 @@ You can use the paginations under these forms to page. Also, you can sort the fi
 
 - 1、Authentication & Authorizations:
 
- Web application has different Authentication & Authorizations for visitors and customer members.
+ Web application has different Authentication & Authorizations for visitors and customer members. Only user who has logged in can use the cart and order module function.
 
 - 2、Product Classification By Categories:
 
@@ -153,7 +151,7 @@ You can use the paginations under these forms to page. Also, you can sort the fi
 
 - 3、Category Breadcrumbs Navigation Bar:
 
- Shopping page will display category-breadcrumbs synchronously in the upper left corner. You can click the breadcrumbs to navigate quickly.
+ Shopping page will display category-breadcrumbs synchronously at the upper left corner. You can click on the breadcrumbs to navigate quickly.
 
 - 4、 Zoom Images Function In Each Product's page:
 
@@ -183,6 +181,7 @@ You can use the paginations under these forms to page. Also, you can sort the fi
 - Users(staff) Manage Page (The form provides all CRUD operations, and file-export, search, sort, paging functions.):
 
 ![image](https://user-images.githubusercontent.com/69294450/189471278-81f125b5-c688-4374-9735-02a37f87700d.png)
+
 
 - Users(staff) Manage Page (Reversely Sort the form by clicking "User ID" column title again):
 
@@ -216,7 +215,7 @@ You can use the paginations under these forms to page. Also, you can sort the fi
 
 - As visitors and customers
 
-- View all categories (This is HomePage of customer-side application, you can click a category to view all products in this category):
+- View all categories (This is HomePage of customer-side application, you can choose a category to view all products under this category):
 ![image](https://user-images.githubusercontent.com/69294450/189471438-eafad388-a7f0-4fe5-8460-31a93cc05ac3.png)
 
 
